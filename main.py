@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.core.window import Window
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
 import pyttsx3
 import speech_recognition as sr
 
@@ -19,23 +20,13 @@ class HomeScreen(Screen):
 
     bot = ChatBot(
             'Chatbot do Poderoso',
-            logic_adapters=[
-            'chatterbot.logic.BestMatch'],
         )
     
-    list = ListTrainer(bot)
-    list.train(
-    [
-        'Oi','Olá',
-        'Tudo bem?','Tudo bem comigo, e com você?',
-        'Como vai seu aprendizado?', 'Ainda em estágio inicial...',
-        'Mas e seu coração?', 'Ainda machucado...',
-        'Bro', 'Bro...',
-        'tchau', 'Tchau!, Até a próxima :)',
-        'Não Identificado', 'Diga Novamente!'
-    ])
+    list = ChatterBotCorpusTrainer(bot)
+    list.train("./frases.yml")
 
     speak = pyttsx3.init('sapi5')
+    speak.setProperty("voice", "brazil")
     rec = sr.Recognizer()
 
     def __init__ (self, tarefas=[], **kwargs):

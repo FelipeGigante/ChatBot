@@ -5,21 +5,50 @@
         name: 'homescreen'
 
 <MenuInitial>:
+    canvas.before:
+        Color:
+            rgba: 127, 0, 255, 0.10
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
     BoxLayout:
         orientation: 'vertical'
-        padding: 150
-        spacing: 25
+        padding: 130
+        spacing: 30
         Image:
             source: 'images/chatbot.png'
             size_hint_y: None
-            height: 220
+            height: 160
+            width: 160
             allow_stretch: True
-        Button:
+        
+        RoundedButton:
             text: 'Comece a Conversar!'
             on_release: app.root.current = 'homescreen'
-        Button:
+            text_size: self.size
+            halign: 'center'
+            valign: 'center'
+            height: 150
+            width: 150
+
+        RoundedButton:
             text: 'Sair do Aplicativo'
+            text_size: self.size
+            halign: 'center'
+            valign: 'center'
             on_release: app.stop()
+
+<RoundedButton@Button>
+	background_color: (0,0,0,0)
+	background_normal: ''
+	canvas.before:
+		Color:
+			rgba: (48/255,84/255,150/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [30]
 
 <HomeScreen>:
     BoxLayout:
@@ -48,8 +77,9 @@
                 size_hint_x: None
                 width: 50
                 on_release: root.mensagem(texto.text)
+                rgba: (48/255,84/255,150/255,1)
             Button:
-                text:'AUDIO'
+                text:'MIC'
                 size_hint_x: None
                 width: 50
                 on_release: root.mensagem_audio(texto.text)
@@ -59,7 +89,11 @@
     height: 120
     Label:
         id:label
-        font_size: 30
+        font_size: 20
+        text_size: self.size
+        halign: 'center'
+        valign: 'center'
+        
     Button:
         text: 'X'
         size_hint_x: None
