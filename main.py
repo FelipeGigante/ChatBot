@@ -18,15 +18,15 @@ class MenuInitial(Screen):
 
 class HomeScreen(Screen):
 
-    bot = ChatBot(
-            'Chatbot do Poderoso',
-        )
+    bot = ChatBot('Chatbot do Poderoso')
     
     list = ChatterBotCorpusTrainer(bot)
     list.train("./frases.yml")
 
     speak = pyttsx3.init('sapi5')
-    speak.setProperty("voice", "brazil")
+    voices = speak.getProperty('voices')
+    speak.setProperty('voice', voices[2].id)
+
     rec = sr.Recognizer()
 
     def __init__ (self, tarefas=[], **kwargs):
