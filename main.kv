@@ -69,24 +69,25 @@
                 height: self.minimum_height
         BoxLayout:
             size_hint_y: None
+            padding_horizontal: 20
             height: 50
             TextInput:
                 id: texto
-            Button:
+            RoundedButton:
                 text:'>'
                 size_hint_x: None
                 width: 50
                 on_release: root.mensagem(texto.text)
                 rgba: (48/255,84/255,150/255,1)
-            Button:
+            RoundedButton:
                 text:'MIC'
                 size_hint_x: None
                 width: 50
                 on_release: root.mensagem_audio(texto.text)
-
+                
 <Message>:
     size_hint_y: None
-    height: 120
+    height: 60
     Label:
         id:label
         font_size: 20
@@ -94,8 +95,19 @@
         halign: 'center'
         valign: 'center'
         
-    Button:
+    RoundedButtonExclude:
         text: 'X'
         size_hint_x: None
         width: 50
         on_release: app.root.get_screen('homescreen').ids.box.remove_widget(root)
+
+<RoundedButtonExclude@Button>
+	background_color: (0,0,0,0)
+	background_normal: ''
+	canvas.before:
+		Color:
+			rgba: (48/255,84/255,150/255,1)
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: [60]
